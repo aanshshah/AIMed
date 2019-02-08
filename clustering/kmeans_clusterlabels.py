@@ -55,16 +55,16 @@ def preprocess_once():
 	    writer.writerow(['SUBJECT_ID', 'HADM_ID', 'ICD9_CODES'])
 	    for key, value in patient_icd9.items():
 	       writer.writerow([key[0], key[1], value])
-	# X['ICD9_CODE'] = 0
-	# for index, row in X.iterrows():	
-	# 	subject_id = row['subject_id']
-	# 	hadm_id = row['hadm_id']
-	# 	exists = patient_icd9.get((subject_id, hadm_id), [])
-	# 	if exists:
-	# 		print(exists)
-	# 		X.at[index, 'ICD9_CODE'] = exists
-	# 		print(index, exists)
-	# X.to_csv('../data/x_with_icd9.csv')
+	X['ICD9_CODE'] = 0
+	X['ICD9_CODE'] = X['ICD9_CODE'].astype(object)
+	for index, row in X.iterrows():	
+		subject_id = row['subject_id']
+		hadm_id = row['hadm_id']
+		exists = patient_icd9.get((subject_id, hadm_id), [])
+		if exists:
+			print(index, exists)
+			X.loc[index, 'ICD9_CODE'] = np.array(exists)
+	X.to_csv('../data/x_with_icd9.csv')
 
 def kmeans_cluster():
 	X = pd.read_csv('../data/x_with_icd9.csv')
@@ -78,6 +78,7 @@ def kmeans_cluster():
 		subject_id = row['SUBJECT_ID']
 		hadm_id = row['HADM_ID']
 		label = k_means.labels_[index]
+
 		codes = row['ICD9_CODE']
 		icd9_code = icd9_map.get(label, [])
 		icd9_code.append(codes)
