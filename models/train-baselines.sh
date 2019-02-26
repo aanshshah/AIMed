@@ -4,7 +4,7 @@
 #SBATCH --time=24:00:00
 
 # 4 cores
-#SBATCH -n 4
+#SBATCH -n 2
 
 # 20G
 #SBATCH --mem=20G
