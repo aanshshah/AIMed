@@ -6,15 +6,15 @@
 # 4 cores
 #SBATCH -n 8
 
-# 20G
+# 48G
 #SBATCH --mem=48G
 
 # Specify a job name:
-#SBATCH -J XGBoostTrain
+#SBATCH -J BaselineTrain
 
 # Specify an output file
-#SBATCH -o XGBoost.out
-#SBATCH -e XGBoost.out
+#SBATCH -o Baseline.out
+#SBATCH -e Baseline.out
 
 
 # Set up the environment by loading modules
@@ -22,4 +22,4 @@ module load anaconda/3-5.2.0
 source activate /users/ashah3/scratch/env
 
 # Run a script
-python -u xg_boost_fit.py > XGBoost.out
+python -u baseline_fit.py > Baseline.out

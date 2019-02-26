@@ -104,7 +104,8 @@ def run_xgboost(optimize=True):
                 plt.grid()
                 fig.savefig(filepath+'_optimization_cluster_'+str(cluster)+'.png')
         
-
+        model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
+        joblib.dump(xgb, model_name) 
 
 def opt_xgboost(cluster, x_df, y_df, optimize=True):
     # Define the class weight scale (a hyperparameter) as the ration of negative labels to positive labels.
@@ -245,7 +246,6 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
 
     print(xgb_opt)
     #save model
-    joblib.dump(xgb, 'xgboost_opt001.model') 
     return xgb_opt
 
 if __name__ == '__main__':
