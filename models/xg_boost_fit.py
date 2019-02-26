@@ -14,8 +14,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix
-from sklearn.decomposition import PCA
-import seaborn as sns
 import csv
 import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
