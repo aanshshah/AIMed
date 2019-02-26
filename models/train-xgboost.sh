@@ -26,4 +26,4 @@ module load cuda/8.0.61 cudnn/5.1
 source activate /users/ashah3/scratch/env
 
 # Run a script
-python xg_boost_fit.py
+python xg_boost_fit.py > XGBoost.out
