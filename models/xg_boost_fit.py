@@ -246,10 +246,10 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
            subsample=0.6)
 
     print(xgb_opt)
-	#save model
-	joblib.dump(xgb, 'xgboost_opt001.model') 
+    #save model
+    joblib.dump(xgb, 'xgboost_opt001.model') 
     return xgb_opt
 
 if __name__ == '__main__':
-	run_xgboost()
+    run_xgboost()
 
