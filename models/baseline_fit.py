@@ -108,7 +108,6 @@ def run_pipeline(dimension_reduction=False):
             directory = 'results/'
             filename = directory+name+'_cluster_'+str(i)+'_withoutPCA_fold_'+str(fold)+'.csv'
             
-            fold_pr = clf_pr.get(name, [])
             fold = 0
             for train_indices, test_indices in skf.split(reduced_df, labels):
                 
@@ -124,7 +123,7 @@ def run_pipeline(dimension_reduction=False):
                 
                 fold+=1
             store_cluster_info(y_predication, y_real, name, i)
-            model_name = name+'_cluster_'+str(i)'.joblib'
+            model_name = name+'_cluster_'+str(i)+'.joblib'
             joblib.dump(clf, model_name)
 if __name__ == '__main__':
     run_pipeline(dimension_reduction=False)
