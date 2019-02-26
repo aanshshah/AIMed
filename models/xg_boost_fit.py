@@ -183,7 +183,7 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 1')
         gsearch1 = GridSearchCV(estimator = gsearch0.best_estimator_,
-         param_grid = param_test1, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+         param_grid = param_test1, scoring='roc_auc',n_jobs=-1,iid=False, cv=5)
         gsearch1.fit(X_train,y_train)
         print(gsearch1.best_params_, gsearch1.best_score_)
 
@@ -195,7 +195,7 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 2')
         gsearch2 = GridSearchCV(estimator = gsearch1.best_estimator_, 
-         param_grid = param_test2, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+         param_grid = param_test2, scoring='roc_auc',n_jobs=-1,iid=False, cv=5)
         gsearch2.fit(X_train,y_train)
         print(gsearch2.best_params_, gsearch2.best_score_)
 
@@ -205,7 +205,7 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 3')
         gsearch3 = GridSearchCV(estimator = gsearch2.best_estimator_, 
-         param_grid = param_test3, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+         param_grid = param_test3, scoring='roc_auc',n_jobs=-1,iid=False, cv=5)
         gsearch3.fit(X_train,y_train)
         print(gsearch3.best_params_, gsearch3.best_score_)
 
@@ -214,7 +214,7 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 4')
         gsearch4 = GridSearchCV(estimator = gsearch3.best_estimator_, 
-         param_grid = param_test4, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+         param_grid = param_test4, scoring='roc_auc',n_jobs=-1,iid=False, cv=5)
         gsearch4.fit(X_train,y_train)
         print(gsearch4.best_params_, gsearch4.best_score_)
 
@@ -225,7 +225,7 @@ def opt_xgboost(cluster, x_df, y_df, optimize=True):
             }
             print('performing hyperparamter optimization step 4b')
             gsearch4b = GridSearchCV(estimator = gsearch4.best_estimator_, 
-             param_grid = param_test4b, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+             param_grid = param_test4b, scoring='roc_auc',n_jobs=-1,iid=False, cv=5)
             gsearch4b.fit(X_train,y_train)
             print(gsearch4b.best_params_, gsearch4.best_score_)
             print('\nParameter optimization finished!')
