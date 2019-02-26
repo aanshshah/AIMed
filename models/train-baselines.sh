@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Request an hour of runtime:
-#SBATCH --time=01:00:00
+#SBATCH --time=24:00:00
 
 # 4 cores
-#SBATCH -n 8
+#SBATCH -n 4
 
-# 48G
-#SBATCH --mem=48G
+# 20G
+#SBATCH --mem=20G
 
 # Specify a job name:
 #SBATCH -J BaselineTrain
