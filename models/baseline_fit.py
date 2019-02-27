@@ -13,7 +13,8 @@ from sklearn.linear_model import ElasticNetCV, LogisticRegressionCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix
+from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support
+from sklearn.utils.multiclass import unique_labels
 import seaborn as sns
 import csv
 import xgboost as xgb
@@ -34,20 +35,16 @@ def preprocess():
     dfs_labels = [df_0_label, df_1_label, df_2_label]
     return dfs, dfs_labels
 
-def classifaction_report_csv(report, filename):
-    report_data = []
-    lines = report.split('\n')
-    for line in lines[2:-3]:
-        row = {}
-        row_data = line.split('      ')
-        row['class'] = row_data[0]
-        row['precision'] = float(row_data[1])
-        row['recall'] = float(row_data[2])
-        row['f1_score'] = float(row_data[3])
-        row['support'] = float(row_data[4])
-        report_data.append(row)
-    dataframe = pd.DataFrame.from_dict(report_data)
-    dataframe.to_csv(filename, index = False)
+def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
+    labels = unique_labels(ground_truth, predictions)
+    precision, recall, f_score, support = precision_recall_fscore_support(ground_truth,predictions,labels=labels,average=None)
+    results_pd = pd.DataFrame({"class": labels,
+                               "precision": precision,
+                               "recall": recall,
+                               "f_score": f_score,
+                               "support": support
+                               })
+    results_pd.to_csv(full_path, index=False)
 
 def create_pipeline():
     pipeline = []
@@ -86,8 +83,7 @@ def store_cluster_info(y_pred, y_real, name, cluster):
     y_preds = np.concatenate(y_pred)
     average_precision = average_precision_score(y_test, y_preds)
     precision, recall, _ = precision_recall_curve(y_test, y_preds)
-    report = classification_report(y_test, y_preds, target_names=['Not Readmitted', 'Readmitted'])
-    classifaction_report_csv(report, filename)
+    classification_report_csv(y_test, y_preds, filename)
     # pr_curve(pr_map, dimension_reduction)
 
 def run_pipeline(dimension_reduction=False):

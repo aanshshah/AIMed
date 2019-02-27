@@ -39,7 +39,7 @@ def run_xgboost(optimize=True):
     filepath = 'results/figures/'
     for cluster, x_df in enumerate(dfs):
         y_df = dfs_labels[cluster]  
-        xg_opt = opt_xgboost(cluster, x_df, y_df, optimize)
+        xgb_opt = opt_xgboost(cluster, x_df, y_df, optimize)
         K = 5
         eval_size = int(np.round(1./K))
         skf = StratifiedKFold(n_splits=K)
