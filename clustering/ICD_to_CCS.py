@@ -9,6 +9,8 @@ from sklearn.manifold import TSNE
 from sklearn.feature_extraction.text import TfidfTransformer
 from kmodes.kmodes import KModes
 from collections import Counter
+import sompy
+
 
 #import csv files as dataframes
 ccs = pd.read_csv('../data/CCS.csv', skiprows=[0,2])
@@ -16,10 +18,10 @@ patient_icd9 = pd.read_csv('../data/patient_icd9.csv')
 
 def icd9_dict():
     '''
-        Input: None
-        Output: Outputs a dictionary mapping icd9 codes to CCS codes
-		
         Create mapping of icd9 codes (key) to CCS codes (value) for quick O(1) lookups
+
+        Input: None
+        Output: Outputs a dictionary mapping icd9 codes to CCS codes		
 	'''
     codes = {}
     for index,row in ccs.iterrows():
@@ -31,10 +33,10 @@ def icd9_dict():
 
 def icd9_to_ccs(icd9_codes, icd9_dict):
     '''
+        Converts list of ICD9 codes to CCS codes
+
         Input: list of icd9 codes and a dict mapping icd9 code to CCS code
         Output: a sorted tuple of corresponding CCS codes
-
-        Converts list of ICD9 codes to CCS codes
     '''
     #clean input and find matching ICD9 code
     patient_codes = icd9_codes.strip("[]").split(", ")
@@ -49,51 +51,43 @@ def icd9_to_ccs(icd9_codes, icd9_dict):
     combo = tuple(sorted(ccs_codes))
     return combo
 
-if __name__ == "__main__":
-    icd9_map = icd9_dict()
-    # combos = {}
-    index_dict, index = {}, 0 #Stores index mapping for BOW
-    num_features = 275 #number of unique CCS codes (Goes from 15072 dim to 275)
-    bow = np.zeros((patient_icd9.shape[0], num_features))
-    ccs_column = [] #create list of CCS codes to add as a df feature 
-    #create BOW array
-    for i, row in patient_icd9.iterrows():
-        patient_codes = row['ICD9_CODES']
-        combo = icd9_to_ccs(patient_codes, icd9_map)
-        ccs_column.append(combo)
-        for c in combo:
-            if c not in index_dict:
-                index_dict[c] = index
-                index += 1
-            bow[i, index_dict[c]] = 1
+def apply_tsvd(data, n_components=50, n_iter=20):
+    '''
+        Applies Truncated SVD to data and transforms using TFIDF
 
-    #34 is the largest number of codes for a single stay
-  
-    #TruncatedSVD
-    # svd = TruncatedSVD(n_components=34, n_iter=20, random_state=42)
-    # svd.fit(bow)
-    # bow = svd.transform(bow)
-    # print(svd.explained_variance_ratio_.sum())  
-    # transformer = TfidfTransformer().fit(bow)
-    # bow = transformer.transform(bow)
-    # print(bow)
+        Input: 2D matrix with features
+        Outputs: 2D matrix of tranformed features with dimensionality reduction
+    '''
+    svd = TruncatedSVD(n_components=n_components, n_iter=n_iter, random_state=42)
+    svd.fit(data)
+    data = svd.transform(data)
+    print(svd.explained_variance_ratio_.sum())  
+    transformer = TfidfTransformer().fit(data)
+    data = transformer.transform(data)
+    return data
 
-    #PCA
-    # pca = PCA(n_components=50)
-    # pca.fit(bow)
-    # bow = pca.transform(bow)
-    # print(pca.explained_variance_)
+def apply_pca(data, n_components=50):
+    '''
+        Applies PCA to data and transforms using TFIDF
 
-    # bow = TSNE(n_components=2).fit_transform(bow)
+        Input: 2D matrix with features
+        Outputs: 2D matrix of tranformed features with dimensionality reduction
+    '''
+    pca = PCA(n_components=n_components)
+    pca.fit(data)
+    data = pca.transform(data)
+    print(pca.explained_variance_)
+    return data
 
-    # K means stuff
-    # inertias = []
-    # k = [x for x in range(1,11)]
-    # for i in range(1, 11):
-        #K means
-        # kmeans = KMeans(n_clusters=i, random_state=0).fit(bow)
-        # print(kmeans.inertia_)
-        # inertias.append(kmeans.inertia_)
+def kmodes(patient_icd9, bow):
+
+    '''
+        Uses kmodes to make clusters for dataset, plots cost graph, and saves clusters to new csv file
+
+        Input: dataframe of patient_icd9 csv and 2D matrix of bag-of-words of CCS codes
+        Output: Saves new data as csv file and graphs the elbow line graph for cost to find best k
+    '''  
+    
 
     # K Modes
     km = KModes(n_clusters=3, init='Huang', n_init=100, verbose=1)
@@ -105,18 +99,53 @@ if __name__ == "__main__":
     patient_icd9['CCS_codes'] = ccs_column
     patient_icd9.to_csv("patient_ccs_100.csv")
 
-    # print(km.cost_)
-    # inertias.append(km.cost_)
+    print(km.cost_)
+    inertias.append(km.cost_)
 
-    # colors = ['b', 'g', 'r']
-    # markers = ['o', 'v', 's']
+    colors = ['b', 'g', 'r']
+    markers = ['o', 'v', 's']
 
 
-    # plt.plot(k, inertias, 'bx-')
-    # plt.xlabel('k')
-    # plt.ylabel('Distortion')
-    # plt.title('K Modes')
-    # plt.show()
+    plt.plot(k, inertias, 'bx-')
+    plt.xlabel('k')
+    plt.ylabel('Distortion')
+    plt.title('K Modes')
+    plt.show()
+
+if __name__ == "__main__":
+    icd9_map = icd9_dict()
+    # combos = {}
+    index_dict, index = {}, 0 #Stores index mapping for BOW
+    num_features = 275 #number of unique CCS codes (Goes from 15072 dim to 275)
+    bow = np.zeros((patient_icd9.shape[0], num_features))
+    ccs_column = [] #create list of CCS codes to add as a df feature 
+
+    #create BOW array
+    for i, row in patient_icd9.iterrows():
+        patient_codes = row['ICD9_CODES']
+        combo = icd9_to_ccs(patient_codes, icd9_map)
+        ccs_column.append(combo)
+        for c in combo:
+            if c not in index_dict:
+                index_dict[c] = index
+                index += 1
+            bow[i, index_dict[c]] = 1
+
+    #SOM
+    mapsize = [30,30]   #5*sqrt(#row)
+    som = sompy.SOMFactory.build(bow, mapsize, mask=None, mapshape='planar', lattice='rect', normalization='var', initialization='pca', neighborhood='gaussian', training='batch', name='sompy')  # this will use the default parameters, but i can change the initialization and neighborhood methods
+    som.train(n_job=1, verbose='info', train_rough_len=50, train_finetune_len=100)  # verbose='debug' will print more, and verbose=None wont print anything
+    map_labels = som.cluster()
+    data_labels = np.array([map_labels[int(k)] for k in som._bmu[0]])
+    print(data_labels.shape, np.unique(data_labels))
+
+    #save as csv
+    patient_icd9['cluster_num'] = data_labels
+    patient_icd9['CCS_codes'] = ccs_column
+    patient_icd9.to_csv("../data/patient_ccs_som_30x30.csv")
+
+    
+    
 
     
 
