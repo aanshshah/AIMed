@@ -1,0 +1,74 @@
+performing hyperparamter optimization step 0
+{'n_estimators': 50} 0.7511280807296165
+performing hyperparamter optimization step 1
+{'max_depth': 2, 'min_child_weight': 3} 0.7906763525906301
+performing hyperparamter optimization step 2
+{'gamma': 0.0} 0.7906763525906301
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.8, 'subsample': 0.4} 0.7987558990114664
+performing hyperparamter optimization step 4
+{'reg_alpha': 0} 0.7987558990114664
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.8, gamma=0.0, learning_rate=0.1,
+       max_delta_step=0, max_depth=2, min_child_weight=3, missing=None,
+       n_estimators=50, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=0, reg_lambda=1,
+       scale_pos_weight=10.186375321336762, seed=1, silent=True,
+       subsample=0.4)
+class weight scale : 10.198198198198199
+class weight scale : 10.1994851994852
+class weight scale : 10.186375321336762
+class weight scale : 10.186375321336762
+class weight scale : 10.186375321336762
+performing hyperparamter optimization step 0
+{'n_estimators': 60} 0.7953981292282378
+performing hyperparamter optimization step 1
+{'max_depth': 3, 'min_child_weight': 3} 0.7990848382338882
+performing hyperparamter optimization step 2
+{'gamma': 0.0} 0.7990848382338882
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.7, 'subsample': 0.8} 0.8085935042264989
+performing hyperparamter optimization step 4
+{'reg_alpha': 0.001} 0.8085937202498613
+performing hyperparamter optimization step 4b
+{'reg_alpha': 0.01} 0.8085937202498613
+
+Parameter optimization finished!
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.7, gamma=0.0, learning_rate=0.1,
+       max_delta_step=0, max_depth=3, min_child_weight=3, missing=None,
+       n_estimators=60, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=0.01, reg_lambda=1,
+       scale_pos_weight=8.653391412570006, seed=1, silent=True,
+       subsample=0.8)
+class weight scale : 8.65815691158157
+class weight scale : 8.65815691158157
+class weight scale : 8.658779576587795
+class weight scale : 8.653391412570006
+class weight scale : 8.653391412570006
+performing hyperparamter optimization step 0
+{'n_estimators': 50} 0.7815690221549616
+performing hyperparamter optimization step 1
+{'max_depth': 3, 'min_child_weight': 5} 0.783658185189361
+performing hyperparamter optimization step 2
+{'gamma': 0.0} 0.783658185189361
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.7, 'subsample': 0.9} 0.7848154764634494
+performing hyperparamter optimization step 4
+{'reg_alpha': 10} 0.7882959854325429
+performing hyperparamter optimization step 4b
+{'reg_alpha': 10} 0.7882959854325429
+
+Parameter optimization finished!
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.7, gamma=0.0, learning_rate=0.1,
+       max_delta_step=0, max_depth=3, min_child_weight=5, missing=None,
+       n_estimators=50, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=10, reg_lambda=1,
+       scale_pos_weight=5.418508287292818, seed=1, silent=True,
+       subsample=0.9)
+class weight scale : 5.417127071823204
+class weight scale : 5.417127071823204
+class weight scale : 5.417127071823204
+class weight scale : 5.418508287292818
+class weight scale : 5.418508287292818
