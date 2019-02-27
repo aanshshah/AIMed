@@ -19,7 +19,7 @@ import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 from xgboost import plot_importance
 from scipy import interp
-import joblib
+# import joblib
 
 def preprocess():
     data = pd.read_csv('../data/labeled_clustered_data.csv')
@@ -84,8 +84,8 @@ def run_xgboost(optimize=True):
 
             fig.savefig(filepath+'PR_Curve_cluster_'+str(cluster)+'.png')
         
-        model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
-        joblib.dump(xgb, model_name) 
+        # model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
+        # joblib.dump(xgb, model_name) 
 
 def opt_xgboost(cluster, x_df, y_df, optimize=True):
     # Define the class weight scale (a hyperparameter) as the ration of negative labels to positive labels.
