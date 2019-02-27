@@ -83,26 +83,6 @@ def run_xgboost(optimize=True):
             plt.legend(loc="lower right")
 
             fig.savefig(filepath+'PR_Curve_cluster_'+str(cluster)+'.png')
-            if optimize:
-
-                aucs = [np.mean(roc_aucs_xgb1),
-                        gsearch0.best_score_,
-                        gsearch1.best_score_,
-                        gsearch2.best_score_,
-                        gsearch3.best_score_,
-                        gsearch4.best_score_,
-                        np.mean(roc_aucs_xgbopt)]
-
-                fig = plt.figure(figsize=(4,4))
-                plt.scatter(np.arange(1,len(aucs)+1), aucs)
-                plt.plot(np.arange(1,len(aucs)+1), aucs)
-                plt.xlim([0.5, len(aucs)+0.5])
-                plt.ylim([0.99*aucs[0], 1.01*aucs[-1]])
-                plt.xlabel('Hyperparamter optimization step')
-                plt.ylabel('AUC')
-                plt.title('Hyperparameter optimization')
-                plt.grid()
-                fig.savefig(filepath+'_optimization_cluster_'+str(cluster)+'.png')
         
         model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
         joblib.dump(xgb, model_name) 
