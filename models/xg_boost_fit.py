@@ -60,7 +60,7 @@ def run_xgboost(optimize=True):
             fpr, tpr, thresholds = precision_recall_curve(y_valid, xgb_opt_pred_prob[:, 1])
             mean_tpr += interp(mean_fpr, fpr, tpr)
             mean_tpr[0] = 0.0
-            roc_auc = average_precision_score(y_valid, xgb1_pred_prob[:, 1])
+            roc_auc = average_precision_score(y_valid, xgb_opt_pred_prob[:, 1])
             roc_aucs_xgbopt.append(roc_auc)
             plt.plot(fpr, tpr, lw=2, label='PR fold %d (area = %0.2f)' % (i, roc_auc))
 
