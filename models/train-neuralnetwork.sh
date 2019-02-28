@@ -21,8 +21,8 @@
 
 # Set up the environment by loading modules
 module load anaconda/3-5.2.0
-module load keras/2.0.9
-module load cuda/8.0.61 cudnn/5.1 tensorflow/1.1.0_gpu
+module load keras/2.1.1
+module load cuda/8.0.61 cudnn/5.1 tensorflow/1.5.0_gpu
 
 source activate /users/ashah3/scratch/env
 
