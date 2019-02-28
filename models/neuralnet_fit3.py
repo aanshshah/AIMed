@@ -71,7 +71,7 @@ def create_pipeline():
         ('preprocess',scaler),
         ('clf',clf)
     ])
-    grid = GridSearchCV(pipeline, cv=3, param_grid=param_grid, n_jobs=-1, verbose=3)
+    grid = GridSearchCV(pipeline, cv=3, param_grid=param_grid, verbose=3)
     return grid
 
 def run_pipeline():
@@ -89,7 +89,7 @@ def run_pipeline():
         y_pred = grid.predict(x_test)
         K.clear_session()
         print("Best: %f using %s" % (grid.best_score_, grid.best_params_))
-        pd.DataFrame(grid.cv_results_).to_csv('neuralnet_optimal2'+'_cluster_'+str(i)+'.csv')
+        pd.DataFrame(grid.cv_results_).to_csv('neuralnet_optimal3'+'_cluster_'+str(i)+'.csv')
 
 if __name__ == '__main__':
     run_pipeline()
