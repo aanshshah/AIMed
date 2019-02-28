@@ -15,12 +15,6 @@ from keras.wrappers.scikit_learn import KerasClassifier
 from keras.models import Model, Sequential
 from keras.layers import Dense, Dropout
 from keras.metrics import binary_accuracy
-from numpy.random import seed
-seed(1)
-from tensorflow import set_random_seed
-set_random_seed(2)
-
-
 
 def preprocess():
     data = pd.read_csv('../data/labeled_clustered_data.csv')
