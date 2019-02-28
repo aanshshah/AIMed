@@ -14,6 +14,12 @@ from keras.wrappers.scikit_learn import KerasClassifier
 from keras.models import Model, Sequential
 from keras.layers import Dense, Dropout
 from keras.metrics import binary_accuracy
+from keras.optimizers import Adam
+from keras.losses import binary_crossentropy
+from keras.activations import softmax, relu
+from sklearn.preprocessing import StandardScaler
+from keras.constraints import maxnorm
+from keras import backend as K
 
 def preprocess():
     data = pd.read_csv('../data/labeled_clustered_data.csv')
@@ -41,7 +47,7 @@ def create_model(first_neuron=64, second_neuron=32, second_activation='relu',
                  last_neuron=1, last_activation='relu', loss='binary_crossentropy', 
                  optimizer='adam', lr=0.01, dropout=0.2):
     model = Sequential()
-    model.add(Dense(first_neuron,input_dim=63,activation='relu'))
+    model.add(Dense(first_neuron,input_dim=71,activation='relu'))
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation=second_activation))
     model.add(Dense(last_neuron,activation=last_activation))
@@ -71,7 +77,9 @@ def create_pipeline():
 
 def run_pipeline():
     dfs, dfs_labels = preprocess()
+    print('finished preprocess')
     grid = create_pipeline()
+    print('created pipeline and running ...')
     for i, df in enumerate(dfs):
         print('CLUSTER: '+str(i))
         labels = dfs_labels[i]

@@ -7,7 +7,6 @@
 #SBATCH -n 4
 
 # Ask for the GPU partition and 1 GPU
-#SBATCH -p gpu --gres=gpu:1
 
 #SBATCH --mem=40G
 
@@ -19,12 +18,10 @@
 #SBATCH -e nn_out.out
 
 
-# Set up the environment by loading modules
 module load anaconda/3-5.2.0
-module load keras/2.0.9
-module load cuda/8.0.61 cudnn/5.1 tensorflow/1.1.0_gpu
-
-source activate /users/ashah3/scratch/env
-
+source activate /gpfs/data/data2040/tf2-gpu
+module unload anaconda/3-5.2.0
+module load cuda/10.0.130
+module load cudnn/7.4
 # Run a script
 python -u neuralnet_fit.py > neuralnet.out
