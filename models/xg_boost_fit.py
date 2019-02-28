@@ -46,8 +46,8 @@ def classification_report_csv(ground_truth,predictions,full_path="test_pandas.cs
 
 def store_cluster_info(y_pred, y_real, name, cluster):
     filename = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
-    y_test = np.concatenate(y_real)
-    y_preds = np.concatenate(y_pred)
+    y_test = np.array(y_real).flatten()
+    y_preds = np.array(y_pred).flatten()
     average_precision = average_precision_score(y_test, y_preds)
     precision, recall, _ = precision_recall_curve(y_test, y_preds)
     classification_report_csv(y_test, y_preds, filename)
@@ -56,7 +56,8 @@ def run_xgboost(optimize=True):
     dfs, dfs_labels = preprocess()
     filepath = 'results/figures/'
     for cluster, x_df in enumerate(dfs):
-        y_df = dfs_labels[cluster]  
+        y_df = dfs_labels[cluster]
+        print('RUN_XGBOOST CLUSTER: '+str(cluster))  
         xgb_opt = opt_xgboost(cluster, x_df, y_df, optimize)
         K = 5
         eval_size = int(np.round(1./K))

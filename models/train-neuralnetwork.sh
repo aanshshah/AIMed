@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Request an hour of runtime:
+#SBATCH --time=24:00:00
+
+# 4 cores
+#SBATCH -n 4
+
+# Ask for the GPU partition and 1 GPU
+#SBATCH -p gpu --gres=gpu:1
+
+#SBATCH --mem=40G
+
+# Specify a job name:
+#SBATCH -J XGBoostTrain
+
+# Specify an output file
+#SBATCH -o neuralnet.out
+#SBATCH -e neuralnet.out
+
+
+# Set up the environment by loading modules
+module load keras/2.0.9
+module load cuda/8.0.61 cudnn/5.1 tensorflow/1.1.0_gpu
+module load anaconda/3-5.2.0
+
+source activate /users/ashah3/scratch/env
+
+# Run a script
+python -u neuralnet_fit.py > neuralnet.out
