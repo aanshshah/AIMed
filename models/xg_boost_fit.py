@@ -13,7 +13,7 @@ from sklearn.linear_model import ElasticNetCV, LogisticRegressionCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix
+from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support
 import csv
 import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
@@ -33,6 +33,24 @@ def preprocess():
     dfs_labels = [df_0_label, df_1_label, df_2_label]
     return dfs, dfs_labels
 
+def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
+    labels = unique_labels(ground_truth, predictions)
+    precision, recall, f_score, support = precision_recall_fscore_support(ground_truth,predictions,labels=labels,average=None)
+    results_pd = pd.DataFrame({"class": labels,
+                               "precision": precision,
+                               "recall": recall,
+                               "f_score": f_score,
+                               "support": support
+                               })
+    results_pd.to_csv(full_path, index=False)
+
+def store_cluster_info(y_pred, y_real, name, cluster):
+    filename = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
+    y_test = np.concatenate(y_real)
+    y_preds = np.concatenate(y_pred)
+    average_precision = average_precision_score(y_test, y_preds)
+    precision, recall, _ = precision_recall_curve(y_test, y_preds)
+    classification_report_csv(y_test, y_preds, filename)
 
 def run_xgboost(optimize=True):
     dfs, dfs_labels = preprocess()
@@ -49,6 +67,9 @@ def run_xgboost(optimize=True):
         lw = 2
         i = 0
         roc_aucs_xgbopt = []
+        y_predications = []
+        y_real = []
+        name = 'XGBoost'
         for train_indices, test_indices in skf.split(x_df, y_df):
             X_train, y_train = x_df.iloc[train_indices], y_df.iloc[train_indices]
             X_valid, y_valid = x_df.iloc[test_indices], y_df.iloc[test_indices]
@@ -57,6 +78,8 @@ def run_xgboost(optimize=True):
             xgb_opt.set_params(**{'scale_pos_weight' : class_weight_scale})
             xgb_opt.fit(X_train,y_train)
             xgb_opt_pred_prob = xgb_opt.predict_proba(X_valid)
+            y_real.append(y_valid)
+            y_predications.append(xgb_opt_pred_prob)
             fpr, tpr, thresholds = precision_recall_curve(y_valid, xgb_opt_pred_prob[:, 1])
             mean_tpr += interp(mean_fpr, fpr, tpr)
             mean_tpr[0] = 0.0
@@ -83,7 +106,7 @@ def run_xgboost(optimize=True):
             plt.legend(loc="lower right")
 
             fig.savefig(filepath+'PR_Curve_cluster_'+str(cluster)+'.png')
-        
+        store_cluster_info(y_predications, y_real, name, cluster)
         # model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
         # joblib.dump(xgb, model_name) 
 
