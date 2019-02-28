@@ -1,3 +1,4 @@
+RUN_XGBOOST CLUSTER: 0
 performing hyperparamter optimization step 0
 {'n_estimators': 50} 0.7511280807296165
 performing hyperparamter optimization step 1
@@ -20,6 +21,7 @@ class weight scale : 10.1994851994852
 class weight scale : 10.186375321336762
 class weight scale : 10.186375321336762
 class weight scale : 10.186375321336762
+RUN_XGBOOST CLUSTER: 1
 performing hyperparamter optimization step 0
 {'n_estimators': 60} 0.7953981292282378
 performing hyperparamter optimization step 1
@@ -46,6 +48,7 @@ class weight scale : 8.65815691158157
 class weight scale : 8.658779576587795
 class weight scale : 8.653391412570006
 class weight scale : 8.653391412570006
+RUN_XGBOOST CLUSTER: 2
 performing hyperparamter optimization step 0
 {'n_estimators': 50} 0.7815690221549616
 performing hyperparamter optimization step 1
