@@ -4,25 +4,24 @@
 #SBATCH --time=24:00:00
 
 # 4 cores
-#SBATCH -n 4
+#SBATCH -n 6
 
 # Ask for the GPU partition and 1 GPU
-#SBATCH -p gpu --gres=gpu:2
 
-#SBATCH --mem=120G
+#SBATCH --mem=320G
 
 # Specify a job name:
-#SBATCH -J NeuralNetTrain
+#SBATCH -J NeuralNetTrain2
 
 # Specify an output file
-#SBATCH -o nn_out.out
-#SBATCH -e nn_out.out
+#SBATCH -o 2nn_out.out
+#SBATCH -e 2nn_out.out
 
 
 module load anaconda/3-5.2.0
-source activate /gpfs/data/data2040/tf2-gpu
+source activate /gpfs/data/data2040/tf2
 module unload anaconda/3-5.2.0
 module load cuda/10.0.130
 module load cudnn/7.4
 # Run a script
-python -u neuralnet_fit.py > neuralnet.out
+python -u neuralnet_fit2.py > neuralnet2.out

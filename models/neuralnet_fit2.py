@@ -90,7 +90,7 @@ def run_pipeline():
         y_pred = pipeline.predict(x_test)
         clear_session()
         print("Best: %f using %s" % (grid.best_score_, grid.best_params_))
-        pd.DataFrame(grid.cv_results_).to_csv('neuralnet_optimal.csv')
+        pd.DataFrame(grid.cv_results_).to_csv('neuralnet_optimal2.csv')
 
 if __name__ == '__main__':
     run_pipeline()

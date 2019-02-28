@@ -1,0 +1,31 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 2880597
+##  Job Name : NeuralNetTrain2
+##  Nodelist : node1317
+##      CPUs : 6
+##  Mem/Node : 327680 MB
+## Directory : /gpfs/scratch/ashah3/AIMed/models
+##   Started : Thu Feb 28 14:31:03 EST 2019
+###############################################################################
+module: loading 'anaconda/3-5.2.0'
+module: unloading 'anaconda/3-5.2.0'
+module: loading 'cuda/10.0.130'
+module: loading 'cudnn/7.4'
+module: cudnn: To use: module load cuda/10.0.130
+Using TensorFlow backend.
+2019-02-28 14:31:33.878793: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2019-02-28 14:31:34.188181: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2600000000 Hz
+2019-02-28 14:31:34.188794: I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x5626822e9a70 executing computations on platform Host. Devices:
+2019-02-28 14:31:34.188852: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (0): <undefined>, <undefined>
+WARNING:tensorflow:From /gpfs/data/data2040/tf2/lib/python3.6/site-packages/tensorflow/python/ops/resource_variable_ops.py:662: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From /gpfs/data/data2040/tf2/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py:143: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+WARNING:tensorflow:From /gpfs/data/data2040/tf2/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py:3068: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+terminate called after throwing an instance of 'std::system_error'
+  what():  Resource temporarily unavailable
+/var/spool/slurmd/job2880597/slurm_script: line 27: 17350 Aborted                 (core dumped) python -u neuralnet_fit2.py > neuralnet2.out

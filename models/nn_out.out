@@ -1,11 +1,11 @@
 ## SLURM PROLOG ###############################################################
-##    Job ID : 2873747
+##    Job ID : 2880555
 ##  Job Name : NeuralNetTrain
-##  Nodelist : node417
+##  Nodelist : gpu1207
 ##      CPUs : 4
-##  Mem/Node : 40960 MB
+##  Mem/Node : 122880 MB
 ## Directory : /gpfs/scratch/ashah3/AIMed/models
-##   Started : Thu Feb 28 00:26:49 EST 2019
+##   Started : Thu Feb 28 14:02:07 EST 2019
 ###############################################################################
 module: loading 'anaconda/3-5.2.0'
 module: unloading 'anaconda/3-5.2.0'
@@ -13,65 +13,34 @@ module: loading 'cuda/10.0.130'
 module: loading 'cudnn/7.4'
 module: cudnn: To use: module load cuda/10.0.130
 Using TensorFlow backend.
-sklearn.externals.joblib.externals.loky.process_executor._RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/externals/loky/process_executor.py", line 418, in _process_worker
-    r = call_item()
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/externals/loky/process_executor.py", line 272, in __call__
-    return self.fn(*self.args, **self.kwargs)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py", line 567, in __call__
-    return self.func(*args, **kwargs)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py", line 225, in __call__
-    for func, args, kwargs in self.items]
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py", line 225, in <listcomp>
-    for func, args, kwargs in self.items]
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/model_selection/_validation.py", line 528, in _fit_and_score
-    estimator.fit(X_train, y_train, **fit_params)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/pipeline.py", line 267, in fit
-    self._final_estimator.fit(Xt, y, **fit_params)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/wrappers/scikit_learn.py", line 210, in fit
-    return super(KerasClassifier, self).fit(x, y, **kwargs)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/wrappers/scikit_learn.py", line 141, in fit
-    self.model = self.build_fn(**self.filter_sk_params(self.build_fn))
-  File "neuralnet_fit.py", line 49, in create_model
-    model = Sequential()
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/engine/sequential.py", line 87, in __init__
-    super(Sequential, self).__init__(name=name)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/legacy/interfaces.py", line 91, in wrapper
-    return func(*args, **kwargs)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/engine/network.py", line 96, in __init__
-    self._init_subclassed_network(**kwargs)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/engine/network.py", line 294, in _init_subclassed_network
-    self._base_init(name=name)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/engine/network.py", line 109, in _base_init
-    name = prefix + '_' + str(K.get_uid(prefix))
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 74, in get_uid
-    graph = tf.get_default_graph()
-AttributeError: module 'tensorflow' has no attribute 'get_default_graph'
-"""
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "neuralnet_fit.py", line 94, in <module>
-    run_pipeline()
-  File "neuralnet_fit.py", line 88, in run_pipeline
-    grid.fit(x_train, y_train)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/model_selection/_search.py", line 722, in fit
-    self._run_search(evaluate_candidates)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/model_selection/_search.py", line 1191, in _run_search
-    evaluate_candidates(ParameterGrid(self.param_grid))
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/model_selection/_search.py", line 711, in evaluate_candidates
-    cv.split(X, y, groups)))
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py", line 930, in __call__
-    self.retrieve()
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py", line 833, in retrieve
-    self._output.extend(job.get(timeout=self.timeout))
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py", line 521, in wrap_future_result
-    return future.result(timeout=timeout)
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/concurrent/futures/_base.py", line 432, in result
-    return self.__get_result()
-  File "/gpfs/data/data2040/tf2-gpu/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-    raise self._exception
-AttributeError: module 'tensorflow' has no attribute 'get_default_graph'
+2019-02-28 14:02:40.821144: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2019-02-28 14:02:40.837037: I tensorflow/stream_executor/platform/default/dso_loader.cc:154] successfully opened CUDA library libcuda.so.1 locally
+2019-02-28 14:02:41.931534: I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x5555f2a3fd50 executing computations on platform CUDA. Devices:
+2019-02-28 14:02:41.931599: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (0): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-02-28 14:02:41.931609: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (1): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-02-28 14:02:41.936129: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3600000000 Hz
+2019-02-28 14:02:41.937322: I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x5555f2af4e80 executing computations on platform Host. Devices:
+2019-02-28 14:02:41.937366: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (0): <undefined>, <undefined>
+2019-02-28 14:02:41.938048: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 0 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:5e:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-02-28 14:02:41.938174: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 1 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:af:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-02-28 14:02:41.939260: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1513] Adding visible gpu devices: 0, 1
+2019-02-28 14:02:41.941046: I tensorflow/core/common_runtime/gpu/gpu_device.cc:985] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-02-28 14:02:41.941064: I tensorflow/core/common_runtime/gpu/gpu_device.cc:991]      0 1 
+2019-02-28 14:02:41.941073: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 0:   N Y 
+2019-02-28 14:02:41.941079: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 1:   Y N 
+2019-02-28 14:02:41.941367: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11312 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-12GB, pci bus id: 0000:5e:00.0, compute capability: 6.0)
+2019-02-28 14:02:41.941753: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 11312 MB memory) -> physical GPU (device: 1, name: Tesla P100-PCIE-12GB, pci bus id: 0000:af:00.0, compute capability: 6.0)
+WARNING: Logging before flag parsing goes to stderr.
+W0228 14:02:42.614672 139884892337984 deprecation.py:506] From /gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py:148: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+2019-02-28 14:02:43.154670: I tensorflow/stream_executor/platform/default/dso_loader.cc:154] successfully opened CUDA library libcublas.so.10.0 locally
+terminate called after throwing an instance of 'std::system_error'
+  what():  Resource temporarily unavailable
+/var/spool/slurmd/job2880555/slurm_script: line 28: 68082 Aborted                 (core dumped) python -u neuralnet_fit.py > neuralnet.out
