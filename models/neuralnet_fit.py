@@ -10,16 +10,15 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
 import csv
 from scipy import interp
-from keras.wrappers.scikit_learn import KerasClassifier
-from keras.models import Model, Sequential
-from keras.layers import Dense, Dropout
-from keras.metrics import binary_accuracy
-from keras.optimizers import Adam
-from keras.losses import binary_crossentropy
-from keras.activations import softmax, relu
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from tensorflow.keras.metrics import binary_accuracy
+from tensorflow.keras.losses import binary_crossentropy
+from tensorflow.keras.activations import softmax, relu
 from sklearn.preprocessing import StandardScaler
-from keras.constraints import maxnorm
 from keras import backend as K
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.optimizers import Adam
 
 def preprocess():
     data = pd.read_csv('../data/labeled_clustered_data.csv')
