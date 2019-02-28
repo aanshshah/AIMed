@@ -4,7 +4,6 @@ def warn(*args, **kwargs):
 import warnings
 warnings.warn = warn
 import os
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV

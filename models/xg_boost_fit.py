@@ -33,24 +33,24 @@ def preprocess():
     dfs_labels = [df_0_label, df_1_label, df_2_label]
     return dfs, dfs_labels
 
-def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
-    labels = unique_labels(ground_truth, predictions)
-    precision, recall, f_score, support = precision_recall_fscore_support(ground_truth,predictions,labels=labels,average=None)
-    results_pd = pd.DataFrame({"class": labels,
-                               "precision": precision,
-                               "recall": recall,
-                               "f_score": f_score,
-                               "support": support
-                               })
-    results_pd.to_csv(full_path, index=False)
+# def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
+#     labels = unique_labels(ground_truth, predictions)
+#     precision, recall, f_score, support = precision_recall_fscore_support(ground_truth,predictions,labels=labels,average=None)
+#     results_pd = pd.DataFrame({"class": labels,
+#                                "precision": precision,
+#                                "recall": recall,
+#                                "f_score": f_score,
+#                                "support": support
+#                                })
+#     results_pd.to_csv(full_path, index=False)
 
-def store_cluster_info(y_pred, y_real, name, cluster):
-    filename = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
-    y_test = np.array(y_real).flatten()
-    y_preds = np.array(y_pred).flatten()
-    average_precision = average_precision_score(y_test, y_preds)
-    precision, recall, _ = precision_recall_curve(y_test, y_preds)
-    classification_report_csv(y_test, y_preds, filename)
+# def store_cluster_info(y_pred, y_real, name, cluster):
+#     filename = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
+#     y_test = np.array(y_real).flatten()
+#     y_preds = np.array(y_pred).flatten()
+#     average_precision = average_precision_score(y_test, y_preds)
+#     precision, recall, _ = precision_recall_curve(y_test, y_preds)
+#     classification_report_csv(y_test, y_preds, filename)
 
 def run_xgboost(optimize=True):
     dfs, dfs_labels = preprocess()
@@ -107,7 +107,7 @@ def run_xgboost(optimize=True):
             plt.legend(loc="lower right")
 
             fig.savefig(filepath+'PR_Curve_cluster_'+str(cluster)+'.png')
-        store_cluster_info(y_predications, y_real, name, cluster)
+        # store_cluster_info(y_predications, y_real, name, cluster)
         # model_name = 'xgboost_cluster_'+str(cluster)+'.joblib'
         # joblib.dump(xgb, model_name) 
 
