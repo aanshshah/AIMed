@@ -54,11 +54,11 @@ def create_model(first_neuron=64, second_neuron=32, second_activation='relu',
     return model
 
 def create_pipeline():
-    param_grid = {'clf__lr': [0.001, 0.01],
-     'clf__first_neuron':[8, 16, 32],
-     'clf__second_neuron':[1, 8, 32],
+    param_grid = {'clf__lr': [0.01],
+     'clf__first_neuron':[8, 16, 32, 64, 128, 256],
+     'clf__second_neuron':[1, 8, 32, 64, 128],
     'clf__last_neuron':[1],
-     'clf__batch_size': [128],
+     'clf__batch_size': [64, 128],
      'clf__epochs': [20],
      'clf__dropout': [0, 0.2],
      'clf__optimizer': [Adam],
