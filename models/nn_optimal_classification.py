@@ -13,7 +13,7 @@ import csv
 from scipy import interp
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.metrics import binary_accuracy
-from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support, f1_score, precision_score, recall_score
+from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support, f1_score, precision_score, recall_score, balanced_accuracy_score
 from keras.losses import binary_crossentropy
 from keras.activations import softmax, relu
 from sklearn.preprocessing import StandardScaler
@@ -56,7 +56,7 @@ def create_model_cluster0():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=["accuracy"])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
     return model
 
 def create_model_cluster2():
@@ -71,7 +71,7 @@ def create_model_cluster2():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=["accuracy"])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
     return model
 
 def create_model_cluster1():
@@ -85,7 +85,7 @@ def create_model_cluster1():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=["accuracy"])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
     return model
 
 def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
@@ -134,24 +134,6 @@ def run_pipeline():
         X_train, X_valid, y_train, y_valid = train_test_split(x_df, y_df, test_size=.2)
         model.fit(X_train,y_train)
         prediction = model.predict(X_valid)
-        # xgb_opt_pred_prob = np.around(xgb_opt_pred_prob)
-        # y_valid = y_valid.tolist()
-        # reals = np.append(reals,y_valid)
-        # reals = reals.astype(int)
-        # prediction = np.append(prediction, xgb_opt_pred_prob)
-        # prediction = prediction.astype(int)
-        # for train_indices, test_indices in skf.split(x_df, y_df):
-        #     X_train, y_train = x_df.iloc[train_indices], y_df.iloc[train_indices]
-        #     X_valid, y_valid = x_df.iloc[test_indices], y_df.iloc[test_indices]
-        #     model.fit(X_train,y_train)
-        #     xgb_opt_pred_prob = model.predict_proba(X_valid)[:, 1]
-        #     xgb_opt_pred_prob = np.around(xgb_opt_pred_prob)
-        #     y_valid = y_valid.tolist()
-        #     reals = np.append(reals,y_valid)
-        #     reals = reals.astype(int)
-        #     prediction = np.append(prediction, xgb_opt_pred_prob)
-        #     prediction = prediction.astype(int)
-        #     fold += 1
         full_path = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
         report = classification_report(y_valid, prediction)
         classification_report_csv(report, full_path)

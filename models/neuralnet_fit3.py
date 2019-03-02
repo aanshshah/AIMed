@@ -19,6 +19,8 @@ from keras import backend as K
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import Adam
+from sklearn.metrics import balanced_accuracy_score
+
 
 def preprocess():
     data = pd.read_csv('../data/labeled_clustered_data.csv')
@@ -32,16 +34,6 @@ def preprocess():
     dfs_labels = [df_0_label, df_1_label, df_2_label]
     return dfs, dfs_labels
 
-def sensitivity(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    return true_positives / (possible_positives + K.epsilon())
-
-def specificity(y_true, y_pred):
-    true_negatives = K.sum(K.round(K.clip((1-y_true) * (1-y_pred), 0, 1)))
-    possible_negatives = K.sum(K.round(K.clip(1-y_true, 0, 1)))
-    return true_negatives / (possible_negatives + K.epsilon())
-
 def create_model(first_neuron=64, second_neuron=32, second_activation='relu', 
                  last_neuron=1, last_activation='relu', loss='binary_crossentropy', 
                  optimizer='adam', lr=0.01, dropout=0.2):
@@ -50,7 +42,7 @@ def create_model(first_neuron=64, second_neuron=32, second_activation='relu',
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation=second_activation))
     model.add(Dense(last_neuron,activation=last_activation))
-    model.compile(loss=loss, optimizer=optimizer(lr=lr), metrics=["accuracy"])
+    model.compile(loss=loss, optimizer=optimizer(lr=lr), metrics=[balanced_accuracy_score])
     return model
 
 def create_pipeline():
@@ -71,7 +63,7 @@ def create_pipeline():
         ('preprocess',scaler),
         ('clf',clf)
     ])
-    grid = GridSearchCV(pipeline, cv=3, param_grid=param_grid, verbose=3)
+    grid = GridSearchCV(pipeline, cv=3, param_grid=param_grid, verbose=3, scoring=my_func)
     return grid
 
 def run_pipeline():
@@ -83,10 +75,8 @@ def run_pipeline():
         print('CLUSTER: '+str(i))
         labels = dfs_labels[i]
         reduced_df = df
-        x_train, x_test, y_train, y_test = train_test_split(reduced_df, labels, test_size=.2)
         K.clear_session()
-        grid.fit(x_train, y_train)
-        y_pred = grid.predict(x_test)
+        grid.fit(reduced_df, labels)
         K.clear_session()
         print("Best: %f using %s" % (grid.best_score_, grid.best_params_))
         pd.DataFrame(grid.cv_results_).to_csv('neuralnet_optimal3'+'_cluster_'+str(i)+'.csv')
