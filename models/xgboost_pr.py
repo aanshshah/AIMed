@@ -20,6 +20,10 @@ import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 from xgboost import plot_importance
 from scipy import interp
+import re
+from io import StringIO
+
+
 # import joblib
 
 def preprocess():
@@ -39,6 +43,8 @@ def classification_report_csv(ground_truth,predictions,full_path="test_pandas.cs
     # predictions = [item for sublist in predictions for item in sublist]
     # ground_truth = [1 if i >= 0.5 else 0 for i in ground_truth]
     # predictions = [1 if i >= 0.5 else 0 for i in predictions]
+    # print(ground_truth)
+    # print(predictions)
     f_score = f1_score(ground_truth, predictions, average="macro")
     precision = precision_score(ground_truth, predictions, average="macro")
     recall = recall_score(ground_truth, predictions, average="macro")
@@ -49,11 +55,18 @@ def classification_report_csv(ground_truth,predictions,full_path="test_pandas.cs
                                })
     results_pd.to_csv(full_path, index=False)
 
+def classification_report_csv(report, full_path):
+    report = re.sub(r" +", " ", report).replace("avg / total", "avg/total").replace("\n ", "\n")
+    report_df = pd.read_csv(StringIO("Classes" + report), sep=' ', index_col=0)        
+    report_df.to_csv(full_path, index = False)
+
+
 def store_cluster_info(y_pred, y_real, name, cluster):
     filename = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
     y_test = np.array(y_real).flatten()
     y_preds = np.array(y_pred).flatten()
-    classification_report_csv(y_test, y_preds, filename)
+    # np.around(y_preds.astype(np.float))
+    classification_report_csv(y_test.any(), y_preds.any(), filename)
 
 def run_xgboost(optimize=True):
     dfs, dfs_labels = preprocess()
@@ -96,18 +109,78 @@ def run_xgboost(optimize=True):
         skf = StratifiedKFold(n_splits=K)
         fig = plt.figure(figsize=(7,7))
         y_predications = []
-        y_real = []
+        
         name = 'XGBoost'
+        fold = 0
+
+        # entries = {'avg_precision':[],
+        #            'avg_recall': [],
+        #            'avg_f_score': [],
+        #             'avg_support': [] }
+        r = {'real': [],
+            'pred': []}
+        prediction = np.array([])
+        reals = np.array([])
         for train_indices, test_indices in skf.split(x_df, y_df):
             X_train, y_train = x_df.iloc[train_indices], y_df.iloc[train_indices]
             X_valid, y_valid = x_df.iloc[test_indices], y_df.iloc[test_indices]
+            # print(X_valid.shape)/
             class_weight_scale = 1.*y_train.value_counts()[0]/y_train.value_counts()[1]
+            xgb_opt.set_params(**{'scale_pos_weight' : class_weight_scale})
             xgb_opt.fit(X_train,y_train)
-            xgb_opt_pred_prob = xgb_opt.predict_proba(X_valid)
-            y_real.append(y_valid.values)
-            y_predications.append(xgb_opt_pred_prob.round())
-        store_cluster_info(y_predications, y_real, name, cluster)
+            xgb_opt_pred_prob = xgb_opt.predict_proba(X_valid)[:, 1]
+            xgb_opt_pred_prob = np.around(xgb_opt_pred_prob)
 
+            y_valid = y_valid.tolist()
+            
+            reals = np.append(reals,y_valid)
+            reals = reals.astype(int)
+            
+            prediction = np.append(prediction, xgb_opt_pred_prob)
+            prediction = prediction.astype(int)
+            # precision, recall, f_score, support = precision_recall_fscore_support(y_valid, xgb_opt_pred_prob)
+            # exists = entries['avg_precision']
+            # exists.append(precision)
+            # entries['avg_precision'] = exists
+            # exists = entries['avg_recall']
+            # exists.append(recall)
+            # entries['avg_recall'] = exists
+            # exists = entries['avg_f_score']
+            # exists.append(f_score)
+            # entries['avg_f_score'] = exists
+            # exists = entries['avg_support']
+            # exists.append(support)
+            # entries['avg_support'] = exists
+
+            fold += 1
+        # results = {}
+        # for key, values in entries.items():
+        #     results[key] = [np.array(values).mean()]
+        # print(results)
+        # results_pd = pd.DataFrame(results)
+        # for key, value in r.items():r[key] = np.array(value).flatten()
+        # real = numpy_fillna(reals)
+        # pred = numpy_fillna(prediction)
+        # reals = numpy_fillna(reals)
+        # prediction = numpy_fillna(prediction)
+        # print(reals.shape, prediction.shape)
+        full_path = 'results/'+name+'_cluster_'+str(cluster)+'_withoutPCA.csv'
+        # print(np.unique(r['pred']))
+        report = classification_report(reals, prediction)
+        classification_report_csv(report, full_path)
+        # results_pd.to_csv(full_path, index=False)
+def numpy_fillna(data):
+    # Get lengths of each row of data
+    # for i in data:
+    #     print(i)
+    lens = np.array([len(i) for i in data])
+
+    # Mask of valid places in each row
+    mask = np.arange(lens.max()) < lens[:,None]
+
+    # Setup output array and put elements from data into masked positions
+    out = np.zeros(mask.shape, dtype=data.dtype)
+    out[mask] = np.concatenate(data)
+    return out
 if __name__ == '__main__':
     run_xgboost()
-
