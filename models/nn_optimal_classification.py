@@ -13,7 +13,7 @@ import csv
 from scipy import interp
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.metrics import binary_accuracy
-from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support, f1_score, precision_score, recall_score, balanced_accuracy_score
+from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support, f1_score, precision_score, recall_score
 from keras.losses import binary_crossentropy
 from keras.activations import softmax, relu
 from sklearn.preprocessing import StandardScaler
@@ -56,7 +56,7 @@ def create_model_cluster0():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=['balanced_accuracy_score'])
     return model
 
 def create_model_cluster2():
@@ -71,7 +71,7 @@ def create_model_cluster2():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=['balanced_accuracy_score'])
     return model
 
 def create_model_cluster1():
@@ -85,7 +85,7 @@ def create_model_cluster1():
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation='relu'))
     model.add(Dense(last_neuron,activation='relu'))
-    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[balanced_accuracy_score])
+    model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=['balanced_accuracy_score'])
     return model
 
 def classification_report_csv(ground_truth,predictions,full_path="test_pandas.csv"):
