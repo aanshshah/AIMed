@@ -10,7 +10,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from kmodes.kmodes import KModes
 from collections import Counter
 import sompy
-
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 #import csv files as dataframes
 ccs = pd.read_csv('../data/CCS.csv', skiprows=[0,2])
@@ -112,6 +112,8 @@ def kmodes(patient_icd9, bow):
     plt.title('K Modes')
     plt.show()
 
+# def som():
+
 if __name__ == "__main__":
     icd9_map = icd9_dict()
     # combos = {}
@@ -134,15 +136,18 @@ if __name__ == "__main__":
     #SOM
     mapsize = [30,30]   #5*sqrt(#row)
     som = sompy.SOMFactory.build(bow, mapsize, mask=None, mapshape='planar', lattice='rect', normalization='var', initialization='pca', neighborhood='gaussian', training='batch', name='sompy')  # this will use the default parameters, but i can change the initialization and neighborhood methods
-    som.train(n_job=1, verbose='info', train_rough_len=50, train_finetune_len=100)  # verbose='debug' will print more, and verbose=None wont print anything
+    # som.train(n_job=1, verbose='info', train_rough_len=50, train_finetune_len=100)  # verbose='debug' will print more, and verbose=None wont print anything
+    som.train(n_job=1, train_rough_len=2, train_finetune_len=2)  # verbose='debug' will print more, and verbose=None wont print anything
     map_labels = som.cluster()
     data_labels = np.array([map_labels[int(k)] for k in som._bmu[0]])
-    print(data_labels.shape, np.unique(data_labels))
+    # print(data_labels.shape, np.unique(data_labels))
 
+    silhouette_avg = silhouette_score(bow, data_labels)
+    print(silhouette_avg)
     #save as csv
-    patient_icd9['cluster_num'] = data_labels
-    patient_icd9['CCS_codes'] = ccs_column
-    patient_icd9.to_csv("../data/patient_ccs_som_30x30.csv")
+    # patient_icd9['cluster_num'] = data_labels
+    # patient_icd9['CCS_codes'] = ccs_column
+    # patient_icd9.to_csv("../data/patient_ccs_som_30x30.csv")
 
     
     
