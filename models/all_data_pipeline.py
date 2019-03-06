@@ -93,9 +93,9 @@ def create_pipeline_nn():
         ('clf',clf)
     ])
     scorers = {
-    'precision_score': make_scorer(precision_score),
-    'recall_score': make_scorer(recall_score),
-    'accuracy_score': make_scorer(accuracy_score)
+    'precision_score': make_scorer(precision_score)
+    # 'recall_score': make_scorer(recall_score),
+    # 'accuracy_score': make_scorer(accuracy_score)
     }
     refit_score='precision_score'
     skf = StratifiedKFold(n_splits=3)

@@ -1,8 +1,6 @@
 #supress warnings (especially from sklearn)
-def warn(*args, **kwargs):
-    pass
 import warnings
-warnings.warn = warn
+warnings.filterwarnings("ignore")
 import os
 import numpy as np
 import pandas as pd

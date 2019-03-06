@@ -3,6 +3,7 @@ def warn(*args, **kwargs):
     pass
 import warnings
 warnings.warn = warn
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 import os
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -13,12 +14,13 @@ from sklearn.linear_model import ElasticNetCV, LogisticRegressionCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support
+from sklearn.metrics import classification_report, average_precision_score, precision_recall_curve, roc_curve, auc, precision_score, roc_curve, confusion_matrix, precision_recall_fscore_support, f1_score, precision_score, recall_score, accuracy_score
 import csv
 import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 from xgboost import plot_importance
 from scipy import interp
+from sklearn.metrics.scorer import make_scorer
 # import joblib
 
 def classification_report_csv(y_test, y_preds, name, full_path, new_file=True):
@@ -67,13 +69,13 @@ def run_xgboost(optimize=True):
         print('class weight scale : {}'.format(class_weight_scale))
         xgb_opt.set_params(**{'scale_pos_weight' : class_weight_scale})
         xgb_opt.fit(X_train,y_train)
-        xgb_opt_pred_prob = xgb_opt.predict_proba(X_valid)
+        xgb_opt_pred_prob = xgb_opt.predict_proba(X_valid)[:, 1]
 
         y_valid = y_valid.values.tolist()
             
         reals = np.append(reals,y_valid)
         reals = reals.astype(int)
-            
+        
         prediction = np.append(prediction, xgb_opt_pred_prob)
         prediction = prediction.astype(int)
     store_cluster_info(prediction, reals, name, new_file=False)
@@ -108,12 +110,15 @@ def opt_xgboost(x_df, y_df, optimize=True):
     y_train = y_df
 
     if optimize:
+        scorers = {
+        'precision_score': make_scorer(precision_score)
+        }
 
         param_test0 = {
          'n_estimators':range(50,250,10)
         }
         print('performing hyperparamter optimization step 0')
-        gsearch0 = GridSearchCV(estimator = xgb1, param_grid = param_test0, scoring='roc_auc',iid=False, cv=5)
+        gsearch0 = GridSearchCV(estimator = xgb1, param_grid = param_test0, n_jobs=-1, scoring=scorers,iid=False, cv=5, refit='precision_score')
         gsearch0.fit(X_train,y_train)
         print(gsearch0.best_params_, gsearch0.best_score_)
 
@@ -123,7 +128,7 @@ def opt_xgboost(x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 1')
         gsearch1 = GridSearchCV(estimator = gsearch0.best_estimator_,
-         param_grid = param_test1, scoring='roc_auc', iid=False, cv=5)
+         param_grid = param_test1, scoring=scorers, n_jobs=-1, iid=False, cv=5, refit='precision_score')
         gsearch1.fit(X_train,y_train)
         print(gsearch1.best_params_, gsearch1.best_score_)
 
@@ -135,7 +140,7 @@ def opt_xgboost(x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 2')
         gsearch2 = GridSearchCV(estimator = gsearch1.best_estimator_, 
-         param_grid = param_test2, scoring='roc_auc', iid=False, cv=5)
+         param_grid = param_test2, scoring=scorers, n_jobs=-1, iid=False, cv=5, refit='precision_score')
         gsearch2.fit(X_train,y_train)
         print(gsearch2.best_params_, gsearch2.best_score_)
 
@@ -145,7 +150,7 @@ def opt_xgboost(x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 3')
         gsearch3 = GridSearchCV(estimator = gsearch2.best_estimator_, 
-         param_grid = param_test3, scoring='roc_auc', iid=False, cv=5)
+         param_grid = param_test3, scoring=scorers, n_jobs=-1, iid=False, cv=5, refit='precision_score')
         gsearch3.fit(X_train,y_train)
         print(gsearch3.best_params_, gsearch3.best_score_)
 
@@ -154,7 +159,7 @@ def opt_xgboost(x_df, y_df, optimize=True):
         }
         print('performing hyperparamter optimization step 4')
         gsearch4 = GridSearchCV(estimator = gsearch3.best_estimator_, 
-         param_grid = param_test4, scoring='roc_auc', iid=False, cv=5)
+         param_grid = param_test4, scoring=scorers, n_jobs=-1, iid=False, cv=5, refit='precision_score')
         gsearch4.fit(X_train,y_train)
         print(gsearch4.best_params_, gsearch4.best_score_)
 
@@ -165,7 +170,7 @@ def opt_xgboost(x_df, y_df, optimize=True):
             }
             print('performing hyperparamter optimization step 4b')
             gsearch4b = GridSearchCV(estimator = gsearch4.best_estimator_, 
-             param_grid = param_test4b, scoring='roc_auc',iid=False, cv=5)
+             param_grid = param_test4b, scoring=scorers,n_jobs=-1,iid=False, cv=5, refit='precision_score')
             gsearch4b.fit(X_train,y_train)
             print(gsearch4b.best_params_, gsearch4.best_score_)
             print('\nParameter optimization finished!')
@@ -186,5 +191,5 @@ def opt_xgboost(x_df, y_df, optimize=True):
     return xgb_opt
 
 if __name__ == '__main__':
-    run_xgboost(optimize=False)
+    run_xgboost(optimize=True)
 
