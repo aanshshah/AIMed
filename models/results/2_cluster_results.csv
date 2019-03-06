@@ -1,0 +1,10 @@
+model,class,precision,recall,f1-score,support
+Neural_Network,0,0.84,1.00,0.91,1218
+Neural_Network,1,0.00,0.00,0.00,234
+Neural_Network,avg/total,0.70,0.84,0.77,1452
+LogisticRegression,0,0.84,1.00,0.91,1218
+LogisticRegression,1,0.00,0.00,0.00,234
+LogisticRegression,avg/total,0.70,0.84,0.77,1452
+RandomForest,0,0.84,0.99,0.91,1218
+RandomForest,1,0.11,0.00,0.01,234
+RandomForest,avg/total,0.72,0.83,0.76,1452
