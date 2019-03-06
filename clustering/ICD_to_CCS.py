@@ -20,8 +20,10 @@ def icd9_dict():
     '''
         Create mapping of icd9 codes (key) to CCS codes (value) for quick O(1) lookups
 
-        Input: None
-        Output: Outputs a dictionary mapping icd9 codes to CCS codes		
+        Args:
+            None
+        Output: 
+            codes: a dictionary mapping icd9 codes to CCS codes		
 	'''
     codes = {}
     for index,row in ccs.iterrows():
@@ -35,8 +37,11 @@ def icd9_to_ccs(icd9_codes, icd9_dict):
     '''
         Converts list of ICD9 codes to CCS codes
 
-        Input: list of icd9 codes and a dict mapping icd9 code to CCS code
-        Output: a sorted tuple of corresponding CCS codes
+        Args: 
+            icd9_codes: list of icd9 codes 
+            icd9_dict: a dict mapping icd9 code to CCS code
+        Returns:
+            a sorted tuple of corresponding CCS codes
     '''
     #clean input and find matching ICD9 code
     patient_codes = icd9_codes.strip("[]").split(", ")
@@ -55,8 +60,10 @@ def apply_tsvd(data, n_components=50, n_iter=20):
     '''
         Applies Truncated SVD to data and transforms using TFIDF
 
-        Input: 2D matrix with features
-        Outputs: 2D matrix of tranformed features with dimensionality reduction
+        Args:
+            data: 2D matrix with features
+        Returns: 
+            data: 2D matrix of tranformed features with dimensionality reduction
     '''
     svd = TruncatedSVD(n_components=n_components, n_iter=n_iter, random_state=42)
     svd.fit(data)
@@ -70,8 +77,10 @@ def apply_pca(data, n_components=50):
     '''
         Applies PCA to data and transforms using TFIDF
 
-        Input: 2D matrix with features
-        Outputs: 2D matrix of tranformed features with dimensionality reduction
+        Args:
+            data: 2D matrix with features
+        Returns:
+            data: 2D matrix of tranformed features with dimensionality reduction
     '''
     pca = PCA(n_components=n_components)
     pca.fit(data)
@@ -84,8 +93,11 @@ def kmodes(patient_icd9, bow):
     '''
         Uses kmodes to make clusters for dataset, plots cost graph, and saves clusters to new csv file
 
-        Input: dataframe of patient_icd9 csv and 2D matrix of bag-of-words of CCS codes
-        Output: Saves new data as csv file and graphs the elbow line graph for cost to find best k
+        Args:
+            patient_icd9: dataframe of patient_icd9 csv
+            bow: 2D matrix of bag-of-words of CCS codes
+        Returns:
+            Saves new data as csv file and graphs the elbow line graph for cost to find best k
     '''  
     
 
@@ -142,8 +154,6 @@ if __name__ == "__main__":
     data_labels = np.array([map_labels[int(k)] for k in som._bmu[0]])
     # print(data_labels.shape, np.unique(data_labels))
 
-    silhouette_avg = silhouette_score(bow, data_labels)
-    print(silhouette_avg)
     #save as csv
     # patient_icd9['cluster_num'] = data_labels
     # patient_icd9['CCS_codes'] = ccs_column
