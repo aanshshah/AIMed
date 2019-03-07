@@ -22,7 +22,7 @@ from scipy import interp
 # In[2]:
 
 
-df = pd.read_csv('../data/x_with_lacefeatures.csv')
+df = pd.read_csv('../data/x_lace_df.csv')
 x_df = df.drop(['subject_id', 'hadm_id'], axis=1)
 y_df = pd.read_csv('../data/y_more_no_df_clean.csv')
 

@@ -1,0 +1,65 @@
+RUN_XGBOOST CLUSTER: 0
+performing hyperparamter optimization step 0
+{'n_estimators': 50} 0.6870388762231123
+performing hyperparamter optimization step 1
+{'max_depth': 1, 'min_child_weight': 1} 0.742217882841168
+performing hyperparamter optimization step 2
+{'gamma': 0.0} 0.742217882841168
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.4, 'subsample': 0.2} 0.7499269237976964
+performing hyperparamter optimization step 4
+{'reg_alpha': 1e-05} 0.7499271840015922
+performing hyperparamter optimization step 4b
+{'reg_alpha': 1.0000000000000002e-06} 0.7499271840015922
+
+Parameter optimization finished!
+OPTIMAL: 
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.4, gamma=0.0, learning_rate=0.1,
+       max_delta_step=0, max_depth=1, min_child_weight=1, missing=None,
+       n_estimators=50, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=1.0000000000000002e-06, reg_lambda=1,
+       scale_pos_weight=10.186375321336762, seed=1, silent=True,
+       subsample=0.2)
+RUN_XGBOOST CLUSTER: 1
+performing hyperparamter optimization step 0
+{'n_estimators': 50} 0.7422974909376526
+performing hyperparamter optimization step 1
+{'max_depth': 2, 'min_child_weight': 3} 0.7522488204716206
+performing hyperparamter optimization step 2
+{'gamma': 0.0} 0.7522488204716206
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.5, 'subsample': 0.6} 0.7622727105638473
+performing hyperparamter optimization step 4
+{'reg_alpha': 0} 0.7622727105638473
+OPTIMAL: 
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.5, gamma=0.0, learning_rate=0.1,
+       max_delta_step=0, max_depth=2, min_child_weight=3, missing=None,
+       n_estimators=50, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=0, reg_lambda=1,
+       scale_pos_weight=8.653391412570006, seed=1, silent=True,
+       subsample=0.6)
+RUN_XGBOOST CLUSTER: 2
+performing hyperparamter optimization step 0
+{'n_estimators': 50} 0.7304803890907741
+performing hyperparamter optimization step 1
+{'max_depth': 5, 'min_child_weight': 6} 0.7385086711792866
+performing hyperparamter optimization step 2
+{'gamma': 0.1} 0.7385571466155524
+performing hyperparamter optimization step 3
+{'colsample_bytree': 0.5, 'subsample': 0.7} 0.7433021833600388
+performing hyperparamter optimization step 4
+{'reg_alpha': 0.001} 0.7433044349576214
+performing hyperparamter optimization step 4b
+{'reg_alpha': 0.0005} 0.7433044349576214
+
+Parameter optimization finished!
+OPTIMAL: 
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+       colsample_bytree=0.5, gamma=0.1, learning_rate=0.1,
+       max_delta_step=0, max_depth=5, min_child_weight=6, missing=None,
+       n_estimators=50, n_jobs=1, nthread=4, objective='binary:logistic',
+       random_state=0, reg_alpha=0.0005, reg_lambda=1,
+       scale_pos_weight=5.418508287292818, seed=1, silent=True,
+       subsample=0.7)

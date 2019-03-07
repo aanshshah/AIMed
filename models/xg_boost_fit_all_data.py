@@ -38,7 +38,7 @@ def store_cluster_info(y_preds, y_real, name, new_file=True):
     classification_report_csv(y_real, y_preds, name, filename, new_file)
 
 def preprocess():
-    df = pd.read_csv('../data/x_with_lacefeatures.csv')
+    df = pd.read_csv('../data/x_lace_df.csv')
     df = df.drop(['subject_id', 'hadm_id'], axis=1)
     y = pd.read_csv('../data/y_more_no_df_clean.csv')
     return df, y

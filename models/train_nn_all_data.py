@@ -44,7 +44,7 @@ def store_cluster_info(y_preds, y_real, name, new_file=True):
     classification_report_csv(y_real, y_preds, name, filename, new_file) 
 
 def preprocess():
-    df = pd.read_csv('../data/x_with_lacefeatures.csv')
+    df = pd.read_csv('../data/x_lace_df.csv', index_col=0)
     df = df.drop(['subject_id', 'hadm_id'], axis=1)
     y = pd.read_csv('../data/y_more_no_df_clean.csv')
     return df, y 
@@ -82,7 +82,7 @@ def create_model(first_neuron=64, second_neuron=32, second_activation='relu',
                  last_neuron=1, last_activation='relu', loss='binary_crossentropy',
                  optimizer='adam', lr=0.01, dropout=0.2):
     model = Sequential()
-    model.add(Dense(first_neuron,input_dim=68,activation='relu'))
+    model.add(Dense(first_neuron,input_dim=63,activation='relu'))
     model.add(Dropout(dropout))
     model.add(Dense(second_neuron,activation=second_activation))
     model.add(Dense(last_neuron,activation=last_activation))

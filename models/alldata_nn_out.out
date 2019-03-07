@@ -69,3 +69,4 @@ Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep
 2019-03-06 21:05:24.478959: I tensorflow/stream_executor/platform/default/dso_loader.cc:154] successfully opened CUDA library libcublas.so.10.0 locally
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:   37.8s remaining:    0.0s
 [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  1.2min remaining:    0.0s
+slurmstepd: error: *** JOB 2962092 ON gpu1209 CANCELLED AT 2019-03-06T21:32:17 ***

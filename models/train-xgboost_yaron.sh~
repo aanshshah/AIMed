@@ -9,13 +9,13 @@
 #SBATCH --mem=120G
 
 # Specify a job name:
-#SBATCH -J XGBoostAll
+#SBATCH -J NeuralNetTrain
 
 # Specify an output file
-#SBATCH -o XGBoostAll.out
-#SBATCH -e XGBoostAll.out
+#SBATCH -o yaron_xgboost.out
+#SBATCH -e yaron_xgboost.out
 
 module load anaconda/3-5.2.0
 source activate /gpfs/data/data2040/tf2
 # Run a script
-python -u -W ignore xg_boost_fit_all_data.py > XGBoostAll.out
+python -u -W ignore Yaron-XGBoost.py > yaron_xgboost.out

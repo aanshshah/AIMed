@@ -1,0 +1,30 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 2959788
+##  Job Name : MyKerasJob
+##  Nodelist : gpu1209
+##      CPUs : 4
+##  Mem/Node : 122880 MB
+## Directory : /gpfs/scratch/ashah3/AIMed
+##   Started : Wed Mar  6 17:19:32 EST 2019
+###############################################################################
+module: loading 'anaconda/3-5.2.0'
+
+MacOS or linux terminal command to create your ssh tunnel:
+ssh -N -L 9070:gpu1209:9070 ashah3@oscar.ssh3.ccv.brown.edu
+Or
+ssh -N -L 9070:gpu1209:9070 ashah3@ssh3.ccv.brown.edu
+   
+
+Here is the MobaXterm info:
+
+Forwarded port:same as remote port
+Remote server: gpu1209
+Remote port: 9070
+SSH server: oscar.ssh3.ccv.brown.edu
+SSH login: ashah3
+SSH port: 22
+
+Use a Browser on your local machine to go to:
+localhost:9070  (prefix w/ http://)
+
+slurmstepd: error: *** JOB 2959788 ON gpu1209 CANCELLED AT 2019-03-06T17:19:57 ***

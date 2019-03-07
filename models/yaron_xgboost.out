@@ -1,3 +1,4 @@
 performing hyperparamter optimization step 0
 {'n_estimators': 210} 0.8328052753455925
 performing hyperparamter optimization step 1
+slurmstepd: error: *** JOB 2961972 ON node1111 CANCELLED AT 2019-03-06T21:32:13 ***
