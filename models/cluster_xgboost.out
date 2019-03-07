@@ -1,0 +1,16 @@
+RUN_XGBOOST CLUSTER: 0
+Traceback (most recent call last):
+  File "xg_boost_fit_cluster.py", line 154, in <module>
+    run_xgboost()
+  File "xg_boost_fit_cluster.py", line 41, in run_xgboost
+    xgb_opt = opt_xgboost(cluster, x_df, y_df, optimize)
+  File "xg_boost_fit_cluster.py", line 68, in opt_xgboost
+    xgb1.fit(X_train,y_train)
+  File "/users/ashah3/.local/lib/python3.6/site-packages/xgboost/sklearn.py", line 706, in fit
+    missing=self.missing, nthread=self.n_jobs)
+  File "/users/ashah3/.local/lib/python3.6/site-packages/xgboost/core.py", line 384, in __init__
+    feature_types)
+  File "/users/ashah3/.local/lib/python3.6/site-packages/xgboost/core.py", line 241, in _maybe_pandas_data
+    raise ValueError(msg + ', '.join(bad_fields))
+ValueError: DataFrame.dtypes for data must be int, float or bool.
+                Did not expect the data types in fields admittime, dischtime, first_careunit, last_careunit, gender, marital_status, insurance, readmit_last_careunit, future_readmit

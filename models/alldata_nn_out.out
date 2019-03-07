@@ -1,0 +1,71 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 2962092
+##  Job Name : NeuralNetTrain
+##  Nodelist : gpu1209
+##      CPUs : 4
+##  Mem/Node : 122880 MB
+## Directory : /gpfs/scratch/ashah3/AIMed/models
+##   Started : Wed Mar  6 21:04:06 EST 2019
+###############################################################################
+module: loading 'anaconda/3-5.2.0'
+module: unloading 'anaconda/3-5.2.0'
+module: loading 'cuda/10.0.130'
+module: loading 'cudnn/7.4'
+module: cudnn: To use: module load cuda/10.0.130
+2019-03-06 21:05:19.812736: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2019-03-06 21:05:19.820539: I tensorflow/stream_executor/platform/default/dso_loader.cc:154] successfully opened CUDA library libcuda.so.1 locally
+2019-03-06 21:05:21.908394: I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x562b4c8f7cb0 executing computations on platform CUDA. Devices:
+2019-03-06 21:05:21.908462: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (0): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-03-06 21:05:21.908474: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (1): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-03-06 21:05:21.908483: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (2): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-03-06 21:05:21.908491: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (3): Tesla P100-PCIE-12GB, Compute Capability 6.0
+2019-03-06 21:05:21.913491: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3600000000 Hz
+2019-03-06 21:05:21.915152: I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x562b4c994740 executing computations on platform Host. Devices:
+2019-03-06 21:05:21.915195: I tensorflow/compiler/xla/service/service.cc:169]   StreamExecutor device (0): <undefined>, <undefined>
+2019-03-06 21:05:21.915894: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 0 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:3b:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-03-06 21:05:21.916033: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 1 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:5e:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-03-06 21:05:21.916159: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 2 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:86:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-03-06 21:05:21.916283: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1434] Found device 3 with properties: 
+name: Tesla P100-PCIE-12GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:af:00.0
+totalMemory: 11.91GiB freeMemory: 11.63GiB
+2019-03-06 21:05:21.921970: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1513] Adding visible gpu devices: 0, 1, 2, 3
+2019-03-06 21:05:21.925387: I tensorflow/core/common_runtime/gpu/gpu_device.cc:985] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-03-06 21:05:21.925414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:991]      0 1 2 3 
+2019-03-06 21:05:21.925425: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 0:   N Y Y Y 
+2019-03-06 21:05:21.925434: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 1:   Y N Y Y 
+2019-03-06 21:05:21.925442: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 2:   Y Y N Y 
+2019-03-06 21:05:21.925450: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 3:   Y Y Y N 
+2019-03-06 21:05:21.925976: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 12198 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-12GB, pci bus id: 0000:3b:00.0, compute capability: 6.0)
+2019-03-06 21:05:21.927154: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 12198 MB memory) -> physical GPU (device: 1, name: Tesla P100-PCIE-12GB, pci bus id: 0000:5e:00.0, compute capability: 6.0)
+2019-03-06 21:05:21.927789: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 12198 MB memory) -> physical GPU (device: 2, name: Tesla P100-PCIE-12GB, pci bus id: 0000:86:00.0, compute capability: 6.0)
+2019-03-06 21:05:21.928408: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 12198 MB memory) -> physical GPU (device: 3, name: Tesla P100-PCIE-12GB, pci bus id: 0000:af:00.0, compute capability: 6.0)
+[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+2019-03-06 21:05:22.548084: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1513] Adding visible gpu devices: 0, 1, 2, 3
+2019-03-06 21:05:22.548290: I tensorflow/core/common_runtime/gpu/gpu_device.cc:985] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-03-06 21:05:22.548307: I tensorflow/core/common_runtime/gpu/gpu_device.cc:991]      0 1 2 3 
+2019-03-06 21:05:22.548317: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 0:   N Y Y Y 
+2019-03-06 21:05:22.548324: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 1:   Y N Y Y 
+2019-03-06 21:05:22.548331: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 2:   Y Y N Y 
+2019-03-06 21:05:22.548338: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1004] 3:   Y Y Y N 
+2019-03-06 21:05:22.548877: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 12198 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-12GB, pci bus id: 0000:3b:00.0, compute capability: 6.0)
+2019-03-06 21:05:22.549516: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 12198 MB memory) -> physical GPU (device: 1, name: Tesla P100-PCIE-12GB, pci bus id: 0000:5e:00.0, compute capability: 6.0)
+2019-03-06 21:05:22.550059: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 12198 MB memory) -> physical GPU (device: 2, name: Tesla P100-PCIE-12GB, pci bus id: 0000:86:00.0, compute capability: 6.0)
+2019-03-06 21:05:22.550620: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1116] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 12198 MB memory) -> physical GPU (device: 3, name: Tesla P100-PCIE-12GB, pci bus id: 0000:af:00.0, compute capability: 6.0)
+2019-03-06 21:05:22.556448: E tensorflow/stream_executor/cuda/cuda_driver.cc:826] failed to allocate 11.91G (12790923264 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+WARNING: Logging before flag parsing goes to stderr.
+W0306 21:05:23.912739 140284239411008 deprecation.py:506] From /gpfs/data/data2040/tf2-gpu/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py:148: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+2019-03-06 21:05:24.478959: I tensorflow/stream_executor/platform/default/dso_loader.cc:154] successfully opened CUDA library libcublas.so.10.0 locally
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:   37.8s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  1.2min remaining:    0.0s
