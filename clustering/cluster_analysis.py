@@ -14,7 +14,7 @@ def generate_plot(groups, labels):
         Returns:
             Saves CCS bar graphs inside graphs folder
     '''
-    index = 1
+    index = 0
     for group in groups:
         ccs_count = {}
         for codes in group:
