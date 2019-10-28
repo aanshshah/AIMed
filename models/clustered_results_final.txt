@@ -1,0 +1,74 @@
+finished preprocess
+created pipeline and running ...
+LogisticRegression cluster: 0
+             precision    recall  f1-score   support
+
+          0       0.91      0.99      0.95      9906
+          1       0.36      0.05      0.09       972
+
+avg / total       0.86      0.91      0.87     10878
+
+RandomForest cluster: 0
+             precision    recall  f1-score   support
+
+          0       0.91      1.00      0.95      9906
+          1       0.51      0.03      0.06       972
+
+avg / total       0.88      0.91      0.87     10878
+
+RUN_XGBOOST CLUSTER: 0
+             precision    recall  f1-score   support
+
+          0       0.95      0.73      0.83      9906
+          1       0.19      0.64      0.29       972
+
+avg / total       0.89      0.72      0.78     10878
+
+LogisticRegression cluster: 1
+             precision    recall  f1-score   support
+
+          0       0.90      0.99      0.95     17382
+          1       0.51      0.06      0.10      2008
+
+avg / total       0.86      0.90      0.86     19390
+
+RandomForest cluster: 1
+             precision    recall  f1-score   support
+
+          0       0.90      1.00      0.95     17382
+          1       0.53      0.04      0.07      2008
+
+avg / total       0.86      0.90      0.86     19390
+
+RUN_XGBOOST CLUSTER: 1
+             precision    recall  f1-score   support
+
+          0       0.95      0.70      0.81     17382
+          1       0.21      0.68      0.32      2008
+
+avg / total       0.87      0.70      0.76     19390
+
+LogisticRegression cluster: 2
+             precision    recall  f1-score   support
+
+          0       0.86      0.98      0.92      4903
+          1       0.54      0.10      0.16       905
+
+avg / total       0.81      0.85      0.80      5808
+
+RandomForest cluster: 2
+             precision    recall  f1-score   support
+
+          0       0.85      0.99      0.91      4903
+          1       0.52      0.08      0.13       905
+
+avg / total       0.80      0.85      0.79      5808
+
+RUN_XGBOOST CLUSTER: 2
+             precision    recall  f1-score   support
+
+          0       0.90      0.83      0.86      4903
+          1       0.35      0.51      0.42       905
+
+avg / total       0.82      0.78      0.79      5808
+
