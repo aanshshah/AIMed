@@ -1,0 +1,3 @@
+,f1_score,precision,recall,support
+    Readmitted,0.33,0.23,0.63,200.0
+Not Readmitted,0.82,0.94,0.73,1976.0
