@@ -1,0 +1,82 @@
+RESTRICTIVE ACADEMIC LICENSE
+
+Copyright (c) 2024 [Your Name/Institution]. All rights reserved.
+
+This license governs use of the accompanying software and documentation files 
+(the "Software"). By using the Software, you accept this license. If you do 
+not accept the license, do not use the Software.
+
+1. DEFINITIONS
+   "Academic Institution" means any accredited college, university, or research 
+   institution engaged in non-commercial research and education.
+   
+   "Academic Use" means use by students, faculty, or staff of an Academic 
+   Institution solely for non-commercial research, teaching, or education purposes.
+   
+   "Commercial Use" means any use that directly or indirectly results in 
+   monetary gain or commercial advantage.
+
+2. GRANT OF LICENSE
+   Subject to the terms of this license, you are granted a non-exclusive, 
+   non-transferable, revocable license to use the Software solely for Academic Use.
+
+3. RESTRICTIONS
+   You may NOT:
+   a) Use the Software for any Commercial Use whatsoever
+   b) Distribute, sublicense, rent, lease, or lend the Software
+   c) Use the Software in any clinical or medical decision-making context
+   d) Use the Software to provide services to third parties
+   e) Remove or alter any proprietary notices or labels on the Software
+   f) Use the Software to train models that will be used commercially
+   g) Share or publish any models trained using this Software without permission
+
+4. ACADEMIC PUBLICATIONS
+   Any academic papers, theses, or publications that utilize the Software must:
+   a) Provide appropriate citation to the original work
+   b) Acknowledge the use of this Software
+   c) Not include the Software's source code without explicit permission
+
+5. MODIFICATIONS
+   You may modify the Software for your own Academic Use, but you may not 
+   distribute modified versions without explicit written permission from the 
+   copyright holder.
+
+6. DATA PRIVACY AND MEDICAL DISCLAIMER
+   a) The Software is designed for research purposes only
+   b) The Software must not be used for actual medical diagnosis or treatment
+   c) Any use with real patient data must comply with all applicable privacy 
+      laws and regulations (HIPAA, GDPR, etc.)
+   d) The authors bear no responsibility for improper use of the Software
+
+7. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+   FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. IN NO EVENT 
+   SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE 
+   FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, 
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+   DEALINGS IN THE SOFTWARE.
+
+8. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE, INCLUDING 
+   BUT NOT LIMITED TO MEDICAL MALPRACTICE, MISDIAGNOSIS, OR PATIENT HARM.
+
+9. TERMINATION
+   This license automatically terminates if you violate any of these restrictions 
+   and may be terminated by the copyright holder at any time. Upon termination, 
+   you must destroy all copies of the Software in your possession.
+
+10. COMMERCIAL LICENSING
+    For commercial use rights, please contact: [your-email@institution.edu]
+
+11. GOVERNING LAW
+    This license shall be governed by the laws of [Your Country/State] without 
+    regard to its conflict of law provisions.
+
+12. THIRD-PARTY COMPONENTS
+    This Software may include third-party libraries or components that are 
+    subject to separate license terms. You must comply with all such licenses.
+
+By using this Software, you acknowledge that you have read this license, 
+understand it, and agree to be bound by its terms and conditions.
